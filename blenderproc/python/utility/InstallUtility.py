@@ -149,7 +149,11 @@ class InstallUtility:
                                     self.pbar.finish()
 
                         print("Downloading blender from " + url)
-                        file_tmp = urlretrieve(url, None, DownloadProgressBar())[0]
+                        import urllib
+                        opener = urllib.request.URLopener()
+                        opener.addheader('User-Agent', 'whatever')
+                        file_tmp, headers = opener.retrieve(url, 'blender-3.5.1-linux-x64.tar.xz')
+                        # file_tmp = urlretrieve(url, None, DownloadProgressBar())[0]
                     except ImportError:
                         print("Progressbar for downloading, can only be shown, "
                               "when the python package \"progressbar\" is installed")
